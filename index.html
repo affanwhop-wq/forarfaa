@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Arfaa 💫</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #120018, #000000 70%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    canvas { position: absolute; top: 0; left: 0; }
+
+    .card {
+      backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 34px 22px;
+      border-radius: 22px;
+      text-align: center;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 0 60px rgba(255,105,180,0.25);
+      animation: fadeIn 2s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      margin-bottom: 12px;
+      background: linear-gradient(45deg, #ff9ad5, #ffd6f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .typing { min-height: 70px; font-size: 14px; line-height: 1.6; margin-bottom: 18px; }
+
+    button {
+      padding: 12px 24px;
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff6ec7, #ff9ad5);
+      color: white;
+      transition: 0.35s;
+      box-shadow: 0 10px 25px rgba(255,105,180,0.4);
+    }
+
+    .hidden { display: none; margin-top: 18px; }
+
+    .final-text { font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+
+    .reasons { text-align: left; font-size: 13px; line-height: 1.6; margin: 10px 0; opacity: 0.9; }
+
+    .yesno { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+
+    .no { position: relative; }
+
+    .success { margin-top: 14px; font-size: 15px; color: #ffd6f6; display: none; }
+
+    .countdown { margin-top: 10px; font-size: 13px; opacity: 0.9; }
+
+    .heart {
+      position: fixed;
+      font-size: 18px;
+      animation: floatUp 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-200px); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="card">
+  <h1 id="title"></h1>
+
+  <div id="typing" class="typing"></div>
+
+  <button onclick="reveal()">Open this ✨</button>
+
+  <div id="final" class="hidden">
+    <div class="final-text">
+      I know I’ve been a little stupid sometimes… but I promise I won’t mess things up again.
+      <br><br>
+      You genuinely make my days a lot better, and I really mean that.
+    </div>
+
+    <div class="reasons">
+      • You make normal days feel lighter.<br>
+      • Talking to you feels easy.<br>
+      • Your presence just makes things better.
+    </div>
+
+    <div class="final-text">
+      So I wanted to ask something simple…
+      <br><br>
+      <b>Will you go out with me on 31st March?</b>
+    </div>
+
+    <div class="countdown" id="countdown"></div>
+
+    <div class="yesno">
+      <button onclick="sayYes()">Yes 💖</button>
+      <button class="no" onmouseover="runAway(this)" ontouchstart="runAway(this)">No 😭</button>
+    </div>
+
+    <div id="success" class="success">
+      You just made me the happiest person right now 🥹💗
+    </div>
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const stars = Array.from({ length: 140 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5
+  }));
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'white';
+    stars.forEach(s => {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+  }
+  drawStars();
+
+  const name = "Arfaa";
+  let idx = 0;
+  function showName() {
+    if (idx < name.length) {
+      document.getElementById('title').innerHTML += name[idx];
+      idx++;
+      setTimeout(showName, 300);
+    }
+  }
+  showName();
+
+  const text = "Instead of sending another boring message… I made something small for you.";
+  let i = 0;
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('typing').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, 40);
+    }
+  }
+  typeWriter();
+
+  function reveal() {
+    document.getElementById('final').style.display = 'block';
+  }
+
+  function runAway(btn) {
+    btn.style.position = 'absolute';
+    btn.style.left = Math.random() * 70 + '%';
+    btn.style.top = Math.random() * 70 + '%';
+  }
+
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '💗';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.top = window.innerHeight + 'px';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 3000);
+  }
+
+  function sayYes() {
+    document.getElementById('success').style.display = 'block';
+    for (let j = 0; j < 20; j++) setTimeout(createHeart, j * 150);
+  }
+
+  const targetDate = new Date('March 31, 2026 00:00:00').getTime();
+  const countdownEl = document.getElementById('countdown');
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+
+    countdownEl.innerHTML = `Time left until our day: ${d}d ${h}h ${m}m`;
+  }, 1000);
+</script>
+
+</body>
+</html>
